@@ -22,7 +22,7 @@ export default function Page()
     const mutation = useMutation({
         mutationFn : (data: employeeData) => axios.post("http://localhost:5000/employee", data),
         onSuccess : (response) => alert(response.data),
-        onError : (err) => alert(err.message)
+        onError : (err : { request : { response : string}}) => alert(err.request.response)
     })
 
     const onSubmit = (data : employeeData) => {
