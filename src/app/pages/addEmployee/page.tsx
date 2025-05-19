@@ -5,27 +5,20 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { employeeInterface } from "@/types/employeeInterface";
 
-interface employeeData {
-    name : string, 
-    email : string,
-    contact : string,
-    age : number,
-    work : string,
-    salary : number
-}
 
 export default function Page()
 {
-    const { register, handleSubmit } = useForm<employeeData>()
+    const { register, handleSubmit } = useForm<employeeInterface>()
 
     const mutation = useMutation({
-        mutationFn : (data: employeeData) => axios.post("http://localhost:5000/employee", data),
+        mutationFn : (data: employeeInterface) => axios.post("http://localhost:5000/employee", data),
         onSuccess : (response) => alert(response.data),
         onError : (err : { request : { response : string}}) => alert(err.request.response)
     })
 
-    const onSubmit = (data : employeeData) => {
+    const onSubmit = (data : employeeInterface) => {
         mutation.mutate(data)
     }
 
