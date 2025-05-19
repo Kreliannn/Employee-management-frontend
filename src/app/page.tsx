@@ -10,8 +10,8 @@ export default function Home() {
   return (
     <div >
         <h1 className="bg-blue-800 m-auto text-2xl text-white">  home </h1>
-        <Button variant={"default"} className="m-2.5" onClick={() => router.push("pages/addEmployee")}> add employee </Button>
-        <Button variant={"outline"} className="m-2.5" onClick={() => router.push("pages/viewEmployee")}> view employee</Button>
+        <Button variant={"default"} className="m-2.5" onClick={() => router.push("pages/adminPage")}> add employee </Button>
+        <Button variant={"outline"} className="m-2.5" onClick={() => router.push("pages/guestPage")}> view employee</Button>
     </div>
   );
 }
