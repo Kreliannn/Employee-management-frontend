@@ -33,7 +33,9 @@ export interface employeeAddInterface {
     name : string, 
     department : string,
     position : string,
-    salary : number
+    salary : number,
+    email : string,
+    contact : string
 }
 
 export interface employeeGetInterface {
@@ -43,5 +45,7 @@ export interface employeeGetInterface {
     position : string,
     salary : number,
     filename : string,
+    email : string,
+    contact : string,
     info : infoInterface[]
 }

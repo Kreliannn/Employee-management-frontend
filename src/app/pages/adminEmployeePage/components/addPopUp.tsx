@@ -30,7 +30,7 @@ export function AddButton({ setEmployees} : { setEmployees :  React.Dispatch<Rea
     const [salary, setSalary] = useState(0)
 
 
-    const mutationUpdate = useMutation({
+    const mutation = useMutation({
         mutationFn : (data : employeeAddInterface) => axios.post("http://localhost:5000/employee", data),
         onSuccess : (response : { data : employeeGetInterface[]} ) => {
           setEmployees(response.data)
@@ -41,7 +41,7 @@ export function AddButton({ setEmployees} : { setEmployees :  React.Dispatch<Rea
 
 
     const addFunction = () => {
-        mutationUpdate.mutate({ name, position, department, salary})
+        mutation.mutate({ name, position, department, salary, email, contact})
         setOpen(false)
         setName("")
         setPosition("")

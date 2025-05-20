@@ -97,6 +97,8 @@ export default  function TableDemo() {
                             <TableHead className="text-white"> Name </TableHead>
                             <TableHead className="text-white"> Position </TableHead>
                             <TableHead className="text-white"> Department </TableHead>
+                            <TableHead className="text-white"> Email </TableHead>
+                            <TableHead className="text-white"> Contact </TableHead>
                             <TableHead className="text-white text-right"> Edit </TableHead>
                         </TableRow>
                     </TableHeader>
@@ -106,6 +108,8 @@ export default  function TableDemo() {
                             <TableCell className="font-semibold">{employee.name}</TableCell>
                             <TableCell>{employee.position}</TableCell>
                             <TableCell>{employee.department}</TableCell>
+                            <TableCell>{employee.email}</TableCell>
+                            <TableCell>{employee.contact}</TableCell>
                             <TableCell className="flex justify-end items-end"><EditButton employee={employee} setEmployees={setEmployees}/></TableCell>
                         </TableRow>
                         ))}

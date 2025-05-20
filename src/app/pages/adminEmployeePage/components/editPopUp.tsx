@@ -16,7 +16,7 @@ import { employeeGetInterface } from "@/types/employeeInterface"
 import { useState } from "react"
 import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
-import { confirmAlert, errorAlert } from "@/app/util/sweetAlert"
+import { confirmAlert, errorAlert, successAlert } from "@/app/util/sweetAlert"
 import { Edit } from "lucide-react"
 
 export function EditButton({employee, setEmployees} : { employee : employeeGetInterface, setEmployees :  React.Dispatch<React.SetStateAction<employeeGetInterface[]>>}) {
@@ -30,12 +30,15 @@ export function EditButton({employee, setEmployees} : { employee : employeeGetIn
     const [salary, setSalary] = useState(employee.salary)
     const [filename, setFilename] = useState(employee.filename)
     const [info, setInfo] = useState(employee.info)
-    const [contact, setContact] = useState("")
-    const [email, setEmail] = useState("")
+    const [contact, setContact] = useState(employee.contact)
+    const [email, setEmail] = useState(employee.email)
 
     const mutationUpdate = useMutation({
         mutationFn : (data : employeeGetInterface) => axios.put("http://localhost:5000/employee", data),
-        onSuccess : (response : { data : employeeGetInterface[]} ) => setEmployees(response.data),
+        onSuccess : (response : { data : employeeGetInterface[]} ) => {
+          setEmployees(response.data)
+          successAlert("updated Successfuly")
+        },
         onError : (err : { request : { response : string}}) => errorAlert(err.request.response)
     })
 
@@ -47,7 +50,7 @@ export function EditButton({employee, setEmployees} : { employee : employeeGetIn
 
     const saveFunction = () =>  {
       confirmAlert("you want to updated employee?.", "Save Changes" , () => {
-        mutationUpdate.mutate({_id, name, position, department, salary, filename, info})
+        mutationUpdate.mutate({_id, name, position, department, salary, filename, info, contact, email})
       }) 
       setOpen(false)
     }

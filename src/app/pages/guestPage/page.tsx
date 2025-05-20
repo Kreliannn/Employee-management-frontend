@@ -78,6 +78,8 @@ export default  function TableDemo() {
                             <TableHead className="text-white"> Name </TableHead>
                             <TableHead className="text-white"> Position </TableHead>
                             <TableHead className="text-white"> Department </TableHead>
+                            <TableHead className="text-white"> Email </TableHead>
+                            <TableHead className="text-white"> Contact </TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody className="max-h-96 overflow-y-auto">
@@ -86,6 +88,8 @@ export default  function TableDemo() {
                             <TableCell className="font-semibold">{employee.name}</TableCell>
                             <TableCell>{employee.position}</TableCell>
                             <TableCell>{employee.department}</TableCell>
+                            <TableCell>{employee.email}</TableCell>
+                            <TableCell>{employee.contact}</TableCell>
                         </TableRow>
                         ))}
                     </TableBody>

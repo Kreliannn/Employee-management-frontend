@@ -3,6 +3,9 @@ import { employeeGetInterface } from "@/types/employeeInterface";
 import { Button } from "@/components/ui/button";
 import { bgStyle } from "@/app/util/func";
 import Link from "next/link";
+import { Briefcase, Calculator, DollarSign, Heart, Mail, Phone, User } from "lucide-react"
+
+
 
 export default async function PayrollTable({ params} : { params : { id : string}}) {
 
@@ -27,37 +30,69 @@ export default async function PayrollTable({ params} : { params : { id : string}
       <div className="w-full mb-5">
            <Button size={"lg"}> <Link href={"/pages/adminIndexPaymentPage"}> Back </Link>  </Button>
        </div>
-      <div className="flex-1">
-            <div className="bg-white rounded-lg shadow p-6 h-full mb-5">
-              <div className="flex items-center mb-6">
+
+       
+        <div className="bg-white rounded-lg shadow p-6 h-[250px] mb-5">
+            <div className="flex items-center mb-6">
                 <div className="bg-green-100 p-3 rounded-full mr-4">
-                  <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                  </svg>
+                <User className="w-6 h-6 text-green-600" />
                 </div>
                 <h2 className="text-xl font-bold text-gray-800">Employee Information</h2>
-              </div>
-              
-              <div className="space-y-4">
-                <div className="flex border-b border-gray-100 pb-3">
-                  <div className="w-1/3 font-medium text-gray-600">Name:</div>
-                  <div className="w-2/3 font-semibold text-green-600">{employee.name}</div>
-                </div>
-                <div className="flex border-b border-gray-100 pb-3">
-                  <div className="w-1/3 font-medium text-gray-600">Position:</div>
-                  <div className="w-2/3 text-gray-900">{employee.position}</div>
-                </div>
-                <div className="flex border-b border-gray-100 pb-3">
-                  <div className="w-1/3 font-medium text-gray-600">Salary:</div>
-                  <div className="w-2/3 text-gray-900">{employee.salary}</div>
-                </div>
-                <div className="flex">
-                  <div className="w-1/3 font-medium text-gray-600">Annual Salary:</div>
-                  <div className="w-2/3 text-gray-900">{employee.salary * 12}</div>
-                </div>
-              </div>
+                
             </div>
-          </div>
+
+            <div className="grid grid-cols-3 gap-3">
+                {/* Row 1 */}
+                <div className="border-b border-gray-100 pb-3">
+                <div className="font-medium text-gray-600 mb-1">
+                    <User className="w-4 h-4 inline mr-1" />
+                    Name:
+                </div>
+                <div className="font-semibold text-green-600 truncate">{employee.name}</div>
+                </div>
+
+                <div className="border-b border-gray-100 pb-3">
+                <div className="font-medium text-gray-600 mb-1">
+                    <Briefcase className="w-4 h-4 inline mr-1" />
+                    Position:
+                </div>
+                <div className="text-gray-900 truncate">{employee.position}</div>
+                </div>
+
+                <div className="border-b border-gray-100 pb-3">
+                <div className="font-medium text-gray-600 mb-1">
+                    <Mail className="w-4 h-4 inline mr-1" />
+                    Email:
+                </div>
+                <div className="text-gray-900 truncate">{employee.email}</div>
+                </div>
+
+                {/* Row 2 */}
+                <div className="border-b border-gray-100 pb-3">
+                <div className="font-medium text-gray-600 mb-1">
+                    <Phone className="w-4 h-4 inline mr-1" />
+                    Contact:
+                </div>
+                <div className="text-gray-900 truncate">{employee.contact}</div>
+                </div>
+
+                <div className="border-b border-gray-100 pb-3">
+                <div className="font-medium text-gray-600 mb-1">
+                    <DollarSign className="w-4 h-4 inline mr-1" />
+                    Salary:
+                </div>
+                <div className="text-gray-900">{employee.salary}</div>
+                </div>
+
+                <div className="border-b border-gray-100 pb-3">
+                <div className="font-medium text-gray-600 mb-1">
+                    <Calculator className="w-4 h-4 inline mr-1" />
+                    Annual:
+                </div>
+                <div className="text-gray-900">{employee.salary * 12}</div>
+                </div>
+            </div>
+        </div>
       
       {/* Payroll Table */}
       <div className="overflow-x-auto">
