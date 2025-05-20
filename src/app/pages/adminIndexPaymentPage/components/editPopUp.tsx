@@ -16,8 +16,13 @@ import {
 import { useState } from "react"
 import { employeeGetInterface, infoInterface } from "@/types/employeeInterface"
 import { getCurrentMonth } from "@/app/util/func"
+import { useMutation } from "@tanstack/react-query"
+import { errorAlert , successAlert, confirmAlert} from "@/app/util/sweetAlert"
+import axios from "axios"
+import { getTotalDeduction } from "@/app/util/func"
 
 export function EditButton({employee, setEmployees} : { employee : employeeGetInterface, setEmployees :  React.Dispatch<React.SetStateAction<employeeGetInterface[]>>}) {
+  
   const [open, setOpen] = useState(false)
 
   const [info, setInfo] = useState({
@@ -47,11 +52,23 @@ export function EditButton({employee, setEmployees} : { employee : employeeGetIn
     landbank_loan_due_16_30: 0,
   })
 
+  const mutationUpdate = useMutation({
+    mutationFn : (data : { _id : string, info : infoInterface}) => axios.put("http://localhost:5000/employee/info", data),
+    onSuccess : (response : { data : employeeGetInterface[]} ) => {
+      setEmployees(response.data)
+      successAlert("Excel File updated")
+    },
+    onError : (err : { request : { response : string}}) => errorAlert(err.request.response)
+  })
+
 
 const submitFunction = () => {
-  const net_amount = (info.amount_due_1_15 + info.amount_due_16_30) - (info.landbank_loan_due_1_15 + info.landbank_loan_due_16_30)
-  const completedInfo : infoInterface = {...info, salary : employee.salary, amount_due_after_landbank : net_amount}
-  console.log(completedInfo)
+  setOpen(false)
+  confirmAlert("do you want to generate payslip?", "confirm", () => {
+    const net_amount = (info.amount_due_1_15 + info.amount_due_16_30) - (info.landbank_loan_due_1_15 + info.landbank_loan_due_16_30)
+    const completedInfo : infoInterface = {...info, salary : employee.salary, amount_due_after_landbank : net_amount}
+    mutationUpdate.mutate({ _id : employee._id , info : completedInfo })
+  })
 }
 
   return (

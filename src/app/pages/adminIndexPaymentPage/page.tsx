@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useRouter } from "next/navigation"
 import { EditButton } from "./components/editPopUp"
-
+import { getTotalDeduction } from "@/app/util/func"
  
 export default  function IndexPayment() {
 
@@ -102,9 +102,9 @@ export default  function IndexPayment() {
                     {employees?.map((employee, index) => (
                     <TableRow key={employee._id} className={index % 2 === 0 ? 'bg-muted' : ''}>
                         <TableCell className="font-semibold">{employee.name}</TableCell>
-                        <TableCell>{employee.salary}</TableCell>
-                        <TableCell>{0}</TableCell>
-                        <TableCell>{0}</TableCell>
+                        <TableCell>{"₱ " + employee.salary}</TableCell>
+                        <TableCell>{"₱ " + getTotalDeduction(employee.info)}</TableCell>
+                        <TableCell>{"₱ " + 0}</TableCell>
                         <TableCell className="flex justify-end items-end"><EditButton employee={employee} setEmployees={setEmployees}/></TableCell>
                     </TableRow>
                     ))}
