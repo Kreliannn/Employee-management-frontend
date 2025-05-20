@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useRouter } from "next/navigation"
 import { EditButton } from "./components/editPopUp"
+import { AddButton } from "./components/addPopUp"
  
 export default  function TableDemo() {
 
@@ -35,6 +36,14 @@ export default  function TableDemo() {
         fetch()
     }, [])
 
+    useEffect(() => {
+        const fetch = async () => {
+            const respone = await axios.get("http://localhost:5000/employee")
+            setData(respone.data)
+        }
+        fetch()
+    }, [employees])
+
     const searchName = () => {
         if(!search) return
         let allEmployee = data
@@ -53,6 +62,15 @@ export default  function TableDemo() {
         <div className="w-full bg-green-500 mb-5">
             <div className="m-auto w-5/6">
                 <div className="m-auto w-5/6 flex justify-end items-end" >
+
+                    <Button variant={"outline"} className="m-2" onClick={() => router.push("adminEmployeePage")}>
+                        Manage Employee
+                    </Button>
+
+                    <Button variant={"outline"} className="m-2" onClick={() => router.push("adminIndexPaymentPage")}>
+                        Index Payment
+                    </Button>
+
                     <Button variant={"destructive"} className="m-2" onClick={() => router.push("/")}>
                         Logout
                     </Button>
@@ -61,7 +79,8 @@ export default  function TableDemo() {
         </div>
         <div className="w-5/6 m-auto">
             <div className="w-5/6 m-auto ">
-                <h1 className=" text-center m-4 text-5xl text-green-700 font-bold"> Employee List </h1>
+                <AddButton setEmployees={setEmployees} />
+                <h1 className=" text-center m-4 text-5xl text-green-700 font-bold"> Employee Management </h1>
             </div>
             <div className="w-5/6 m-auto flex">
                 <Input onChange={ searchOnchange }  value={search} placeholder="search Employee Name" className="m-2"/>

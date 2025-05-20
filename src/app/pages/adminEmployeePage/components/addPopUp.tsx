@@ -12,45 +12,51 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { employeeGetInterface } from "@/types/employeeInterface"
+import { employeeGetInterface, employeeAddInterface } from "@/types/employeeInterface"
 import { useState } from "react"
 import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
+import { errorAlert, successAlert } from "@/app/util/sweetAlert"
  
-export function EditButton({employee, setEmployees} : { employee : employeeGetInterface, setEmployees :  React.Dispatch<React.SetStateAction<employeeGetInterface[]>>}) {
+export function AddButton({ setEmployees} : { setEmployees :  React.Dispatch<React.SetStateAction<employeeGetInterface[]>>}) {
     
-    const _id = employee._id
-    const [name, setName] = useState(employee.name)
-    const [position, setPosition] = useState(employee.position)
-    const [department, setDepartment] = useState(employee.department)
-    const [salary, setSalary] = useState(employee.salary)
+    const [open, setOpen] = useState(false);
+    const [name, setName] = useState("")
+    const [position, setPosition] = useState("")
+    const [department, setDepartment] = useState("")
+    const [salary, setSalary] = useState(0)
 
 
     const mutationUpdate = useMutation({
-        mutationFn : (data : employeeGetInterface) => axios.put("http://localhost:5000/employee", data),
-        onSuccess : (response : { data : employeeGetInterface[]} ) => setEmployees(response.data),
-        onError : (err : { request : { response : string}}) => alert(err.request.response)
+        mutationFn : (data : employeeAddInterface) => axios.post("http://localhost:5000/employee", data),
+        onSuccess : (response : { data : employeeGetInterface[]} ) => {
+          setEmployees(response.data)
+          successAlert("Employee Added")
+        },
+        onError : (err : { request : { response : string}}) => errorAlert(err.request.response)
     })
 
-    const mutationDelete = useMutation({
-      mutationFn : (id : string) => axios.delete("http://localhost:5000/employee/" + id),
-      onSuccess : (response : { data : employeeGetInterface[]} ) => setEmployees(response.data),
-      onError : (err : { request : { response : string}}) => alert(err.request.response)
-  })
 
-    const saveFunction = () => mutationUpdate.mutate({_id, name, position, department, salary})
-    const deleteFunction = () => mutationDelete.mutate(_id)
+    const addFunction = () => {
+        mutationUpdate.mutate({ name, position, department, salary})
+        setOpen(false)
+        setName("")
+        setPosition("")
+        setSalary(0)
+        setDepartment("")
+    }
+  
   
     return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="outline">Edit</Button>
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger onClick={() => setOpen(true)} asChild >
+        <Button size={"lg"} variant="outline">Add</Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
+          <SheetTitle>Add Employee</SheetTitle>
           <SheetDescription>
-            Make changes to your Employee here. Click save when you're done.
+            you can add employee here. Click add employee when you're done.
           </SheetDescription>
         </SheetHeader>
 
@@ -58,7 +64,7 @@ export function EditButton({employee, setEmployees} : { employee : employeeGetIn
             <div className="grid gap-6 mb-6">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="name">Name</Label>
-                <Input id="name" onChange={(e) => setName(e.target.value)} value={name} />
+                <Input id="name" onChange={(e) => setName(e.target.value)} value={name} placeholder="Surname Firstname Mi"/>
               </div>
 
               <div className="flex flex-col gap-2">
@@ -78,13 +84,9 @@ export function EditButton({employee, setEmployees} : { employee : employeeGetIn
             </div>
 
             <div className="flex flex-col gap-2">
-              <Button  onClick={saveFunction}>
-                Save Changes
+              <Button  onClick={addFunction}>
+                    Add Employee
               </Button>
-              <Button  variant="destructive" onClick={deleteFunction}>
-                Delete
-              </Button>
-              
             </div>
           </div>
 
