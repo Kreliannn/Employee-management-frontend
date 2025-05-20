@@ -20,6 +20,7 @@ import { useMutation } from "@tanstack/react-query"
 import { errorAlert , successAlert, confirmAlert} from "@/app/util/sweetAlert"
 import axios from "axios"
 import { getTotalDeduction } from "@/app/util/func"
+import { Edit } from "lucide-react"
 
 export function EditButton({employee, setEmployees} : { employee : employeeGetInterface, setEmployees :  React.Dispatch<React.SetStateAction<employeeGetInterface[]>>}) {
   
@@ -64,7 +65,7 @@ export function EditButton({employee, setEmployees} : { employee : employeeGetIn
 
 const submitFunction = () => {
   setOpen(false)
-  confirmAlert("do you want to generate payslip?", "confirm", () => {
+  confirmAlert(`Update ${employee.name} Data?`, "confirm", () => {
     const net_amount = (info.amount_due_1_15 + info.amount_due_16_30) - (info.landbank_loan_due_1_15 + info.landbank_loan_due_16_30)
     const completedInfo : infoInterface = {...info, salary : employee.salary, amount_due_after_landbank : net_amount}
     mutationUpdate.mutate({ _id : employee._id , info : completedInfo })
@@ -74,7 +75,7 @@ const submitFunction = () => {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger onClick={() => setOpen(true)} asChild>
-        <Button variant="outline">Edit</Button>
+        <Button variant="outline"> <Edit className=" h-4 w-4" /> Edit</Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>

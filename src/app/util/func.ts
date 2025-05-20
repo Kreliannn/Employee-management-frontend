@@ -37,3 +37,20 @@ export const getTotalDeduction = (info : infoInterface[]) => {
     return total_deduction
    
 }
+
+
+export const getTotalNet = (info : infoInterface[]) => {
+    const length = info.length
+    if( length == 0) return 0
+    const {  amount_due_after_landbank } = info[length - 1]
+    return amount_due_after_landbank
+}
+
+
+export const bgStyle = {
+    backgroundImage: "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/bg.jpg')",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center"
+  }
+  

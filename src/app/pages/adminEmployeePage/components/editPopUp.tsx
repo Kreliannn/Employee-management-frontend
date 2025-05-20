@@ -17,6 +17,7 @@ import { useState } from "react"
 import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
 import { confirmAlert, errorAlert } from "@/app/util/sweetAlert"
+import { Edit } from "lucide-react"
 
 export function EditButton({employee, setEmployees} : { employee : employeeGetInterface, setEmployees :  React.Dispatch<React.SetStateAction<employeeGetInterface[]>>}) {
     
@@ -29,7 +30,8 @@ export function EditButton({employee, setEmployees} : { employee : employeeGetIn
     const [salary, setSalary] = useState(employee.salary)
     const [filename, setFilename] = useState(employee.filename)
     const [info, setInfo] = useState(employee.info)
-
+    const [contact, setContact] = useState("")
+    const [email, setEmail] = useState("")
 
     const mutationUpdate = useMutation({
         mutationFn : (data : employeeGetInterface) => axios.put("http://localhost:5000/employee", data),
@@ -59,11 +61,11 @@ export function EditButton({employee, setEmployees} : { employee : employeeGetIn
     return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger onClick={() => setOpen(true)} asChild>
-        <Button variant="outline">Edit</Button>
+        <Button variant="outline"> <Edit className=" h-4 w-4" />  Edit</Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Edit Employee</SheetTitle>
+          <SheetTitle>Edit {name} </SheetTitle>
           <SheetDescription>
             Make changes to your Employee here. Click save when you're done.
           </SheetDescription>
@@ -71,10 +73,6 @@ export function EditButton({employee, setEmployees} : { employee : employeeGetIn
 
           <div className=" rounded-lg p-6 shadow-sm w-5/6 m-auto">
             <div className="grid gap-6 mb-6">
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" onChange={(e) => setName(e.target.value)} value={name} />
-              </div>
 
               <div className="flex flex-col gap-2">
                 <Label htmlFor="position">Position</Label>
@@ -89,6 +87,17 @@ export function EditButton({employee, setEmployees} : { employee : employeeGetIn
               <div className="flex flex-col gap-2">
                 <Label htmlFor="salary">Salary</Label>
                 <Input id="salary" type="number" onChange={(e) => setSalary(Number(e.target.value))} value={salary} />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="">Email</Label>
+                <Input id="Email"  onChange={(e) => setEmail(e.target.value)} value={email} />
+              </div>
+
+
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="">Contact</Label>
+                <Input id="salary" type="number" onChange={(e) => setContact(e.target.value)} value={contact} />
               </div>
             </div>
 
@@ -106,7 +115,7 @@ export function EditButton({employee, setEmployees} : { employee : employeeGetIn
 
         <SheetFooter>
           <SheetClose asChild>
-            <Button type="submit"> Close </Button>
+            <Button type="submit" variant={"outline"}> Close </Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>

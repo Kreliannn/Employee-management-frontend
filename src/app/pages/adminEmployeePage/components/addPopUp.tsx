@@ -17,6 +17,7 @@ import { useState } from "react"
 import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
 import { errorAlert, successAlert } from "@/app/util/sweetAlert"
+import { Plus } from "lucide-react";
  
 export function AddButton({ setEmployees} : { setEmployees :  React.Dispatch<React.SetStateAction<employeeGetInterface[]>>}) {
     
@@ -24,6 +25,8 @@ export function AddButton({ setEmployees} : { setEmployees :  React.Dispatch<Rea
     const [name, setName] = useState("")
     const [position, setPosition] = useState("")
     const [department, setDepartment] = useState("")
+    const [contact, setContact] = useState("")
+    const [email, setEmail] = useState("")
     const [salary, setSalary] = useState(0)
 
 
@@ -50,7 +53,7 @@ export function AddButton({ setEmployees} : { setEmployees :  React.Dispatch<Rea
     return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger onClick={() => setOpen(true)} asChild >
-        <Button size={"lg"} variant="outline">Add</Button>
+        <Button size={"lg"} variant="default"> <Plus className=" h-4 w-4" /> Add Employee</Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
@@ -80,6 +83,17 @@ export function AddButton({ setEmployees} : { setEmployees :  React.Dispatch<Rea
               <div className="flex flex-col gap-2">
                 <Label htmlFor="salary">Salary</Label>
                 <Input id="salary" type="number" onChange={(e) => setSalary(Number(e.target.value))} value={salary} />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="">Email</Label>
+                <Input id="Email"  onChange={(e) => setEmail(e.target.value)} value={email} />
+              </div>
+
+
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="">Contact</Label>
+                <Input id="salary" type="number" onChange={(e) => setContact(e.target.value)} value={contact} />
               </div>
             </div>
 
