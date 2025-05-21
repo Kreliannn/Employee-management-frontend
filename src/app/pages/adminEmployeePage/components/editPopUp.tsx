@@ -32,6 +32,7 @@ export function EditButton({employee, setEmployees} : { employee : employeeGetIn
     const [info, setInfo] = useState(employee.info)
     const [contact, setContact] = useState(employee.contact)
     const [email, setEmail] = useState(employee.email)
+    const [loan, setLoan] = useState(employee.loan)
 
     const mutationUpdate = useMutation({
         mutationFn : (data : employeeGetInterface) => axios.put("http://localhost:5000/employee", data),
@@ -50,7 +51,7 @@ export function EditButton({employee, setEmployees} : { employee : employeeGetIn
 
     const saveFunction = () =>  {
       confirmAlert("you want to updated employee?.", "Save Changes" , () => {
-        mutationUpdate.mutate({_id, name, position, department, salary, filename, info, contact, email})
+        mutationUpdate.mutate({_id, name, position, department, salary, filename, info, contact, email, loan})
       }) 
       setOpen(false)
     }

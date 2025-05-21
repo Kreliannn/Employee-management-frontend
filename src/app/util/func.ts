@@ -29,10 +29,12 @@ export const getTotalDeduction = (info : infoInterface[]) => {
         gfal,
         educ,
         policy_loan_opt,
-        computer_loan
+        computer_loan,
+        landbank_loan_due_16_30,
+        landbank_loan_due_1_15
     } = info[length - 1]
     
-    const total_deduction = computer_loan + policy_loan_opt + educ + gfal + policy_loan + mpl + emergency_loan+  dbp_loan + consol_salary_loan +  veterans_loan + pagibig_housing_loan + pera_adcom_allow + tax + life_retirement + medicare + pagibig_cont + euli + pagibig_loan + pagibig_calamity_loan
+    const total_deduction =  landbank_loan_due_16_30 + landbank_loan_due_1_15 +computer_loan + policy_loan_opt + educ + gfal + policy_loan + mpl + emergency_loan+  dbp_loan + consol_salary_loan +  veterans_loan + pagibig_housing_loan  + tax + life_retirement + medicare + pagibig_cont + euli + pagibig_loan + pagibig_calamity_loan
     
     return total_deduction
    

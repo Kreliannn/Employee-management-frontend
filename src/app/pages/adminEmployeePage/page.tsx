@@ -72,6 +72,10 @@ export default  function TableDemo() {
                         Index Payment
                     </Button>
 
+                    <Button variant={"outline"} className="m-2 mt-4" onClick={() => router.push("adminEmployeeLoan")}>
+                        Employee Loan
+                    </Button>
+
                     <Button variant={"destructive"} className="m-2 mt-4" onClick={() => router.push("/")}>
                         Logout
                     </Button>

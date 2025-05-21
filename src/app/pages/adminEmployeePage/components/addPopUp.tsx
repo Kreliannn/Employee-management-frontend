@@ -47,6 +47,8 @@ export function AddButton({ setEmployees} : { setEmployees :  React.Dispatch<Rea
         setPosition("")
         setSalary(0)
         setDepartment("")
+        setEmail("")
+        setContact("")
     }
   
   

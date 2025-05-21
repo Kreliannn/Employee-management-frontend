@@ -28,6 +28,34 @@ export interface infoInterface {
 }
 
 
+interface  validityInterface {
+    end_date : string,
+    validity : number
+}
+
+export interface loan_dateInterface {
+    pera_adcom_allow : validityInterface,
+    tax : validityInterface,
+    life_retirement : validityInterface,
+    medicare : validityInterface,
+    pagibig_cont : validityInterface,
+    euli : validityInterface,
+    pagibig_loan : validityInterface,
+    pagibig_calamity_loan : validityInterface,
+    pagibig_housing_loan : validityInterface,
+    veterans_loan : validityInterface,
+    dbp_loan : validityInterface,
+    consol_salary_loan : validityInterface,
+    mpl : validityInterface,
+    emergency_loan : validityInterface,
+    policy_loan : validityInterface,
+    gfal : validityInterface,
+    educ : validityInterface,
+    policy_loan_opt : validityInterface,
+    computer_loan : validityInterface, 
+    landbank_loan_due_1_15 : validityInterface,
+    landbank_loan_due_16_30 : validityInterface,
+}
 
 export interface employeeAddInterface {
     name : string, 
@@ -47,5 +75,6 @@ export interface employeeGetInterface {
     filename : string,
     email : string,
     contact : string,
+    loan : loan_dateInterface,
     info : infoInterface[]
 }
