@@ -26,31 +26,33 @@ export function EditButton({employee, setEmployees} : { employee : employeeGetIn
   
   const [open, setOpen] = useState(false)
 
+  const lastInfo = employee.info[employee.info.length - 1] ?? {}
+
   const [info, setInfo] = useState({
     period_covered: getCurrentMonth(),
-    pera_adcom_allow: 0,
-    tax: 0,
-    life_retirement: 0,
-    medicare: 0,
-    pagibig_cont: 0,
-    euli: 0,
-    pagibig_loan: 0,
-    pagibig_calamity_loan: 0,
-    pagibig_housing_loan: 0,
-    veterans_loan: 0,
-    dbp_loan: 0,
-    consol_salary_loan: 0,
-    mpl: 0,
-    emergency_loan: 0,
-    policy_loan: 0,
-    gfal: 0,
-    educ: 0,
-    policy_loan_opt: 0,
-    computer_loan : 0,
-    amount_due_1_15: 0,
-    amount_due_16_30: 0,
-    landbank_loan_due_1_15: 0,
-    landbank_loan_due_16_30: 0,
+    pera_adcom_allow: lastInfo.pera_adcom_allow ?? 0,
+    tax: lastInfo.tax ?? 0,
+    life_retirement: lastInfo.life_retirement ?? 0,
+    medicare: lastInfo.medicare ?? 0,
+    pagibig_cont: lastInfo.pagibig_cont ?? 0,
+    euli: lastInfo.euli ?? 0,
+    pagibig_loan: lastInfo.pagibig_loan ?? 0,
+    pagibig_calamity_loan: lastInfo.pagibig_calamity_loan ?? 0,
+    pagibig_housing_loan: lastInfo.pagibig_housing_loan ?? 0,
+    veterans_loan: lastInfo.veterans_loan ?? 0,
+    dbp_loan: lastInfo.dbp_loan ?? 0,
+    consol_salary_loan: lastInfo.consol_salary_loan ?? 0,
+    mpl: lastInfo.mpl ?? 0,
+    emergency_loan: lastInfo.emergency_loan ?? 0,
+    policy_loan: lastInfo.policy_loan ?? 0,
+    gfal: lastInfo.gfal ?? 0,
+    educ: lastInfo.educ ?? 0,
+    policy_loan_opt: lastInfo.policy_loan_opt ?? 0,
+    computer_loan: lastInfo.computer_loan ?? 0,
+    amount_due_1_15: lastInfo.amount_due_1_15 ?? 0,
+    amount_due_16_30: lastInfo.amount_due_16_30 ?? 0,
+    landbank_loan_due_1_15: lastInfo.landbank_loan_due_1_15 ?? 0,
+    landbank_loan_due_16_30: lastInfo.landbank_loan_due_16_30 ?? 0
   })
 
   const mutationUpdate = useMutation({

@@ -19,6 +19,7 @@ import { getTotalDeduction, getTotalNet } from "@/app/util/func"
 import { bgStyle } from "@/app/util/func"
 import { Search, View , Edit} from "lucide-react" 
 import { Label } from "@/components/ui/label"
+import { EditButton } from "./components/EditButton"
 
 export default  function IndexPayment() {
 
@@ -103,19 +104,18 @@ export default  function IndexPayment() {
                         const name = employee.name
                         const loan = employee.loan
                         const lastInfo = employee.info.length > 0 ? employee.info[employee.info.length - 1] : null;
-
+                        
                         
                         return (
                         <div key={employee._id} className="bg-white rounded-md p-3 text-white relative mb-3">
-                            {/* Edit Button */}
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                className="absolute top-2 right-2 h-7 px-2 py-1">
-                                
-                                <Edit className="h-3 w-3 mr-1" />
-                                Edit
-                            </Button>
+                            {/* Edit Button */}            
+                            
+                           
+
+                            {!lastInfo ? (
+                                null 
+                            ) : <EditButton  employee={employee} setEmployees={setEmployees}/>}
+                        
         
                             {/* Employee Name */}
                             <div className="mb-2 pr-16">
@@ -282,9 +282,9 @@ export default  function IndexPayment() {
                                             validity={loan.computer_loan.validity}
                                         />
                                         )}
-                                        {lastInfo.landbank_loan_due_1_15 !== 0 || lastInfo.landbank_loan_due_16_30 !== 0 && (
+                                        {(lastInfo.landbank_loan_due_16_30 != 0 || lastInfo.landbank_loan_due_1_15 != 0) && (
                                         <LoanCard
-                                            name={"landbank loan due 1-30"}
+                                            name={"landbank loan 1-30"}
                                             value={lastInfo.landbank_loan_due_1_15 + lastInfo.landbank_loan_due_16_30}
                                             end_date={loan.landbank_loan_due_1_15.end_date}
                                             validity={loan.landbank_loan_due_1_15.validity}

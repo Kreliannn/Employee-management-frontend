@@ -34,7 +34,6 @@ interface  validityInterface {
 }
 
 export interface loan_dateInterface {
-    pera_adcom_allow : validityInterface,
     tax : validityInterface,
     life_retirement : validityInterface,
     medicare : validityInterface,
