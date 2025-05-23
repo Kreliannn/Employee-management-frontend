@@ -18,6 +18,7 @@ import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
 import { confirmAlert, errorAlert, successAlert } from "@/app/util/sweetAlert"
 import { Edit } from "lucide-react"
+import { backendUrl } from "@/app/util/url"
 
 export function EditButton({employee, setEmployees} : { employee : employeeGetInterface, setEmployees :  React.Dispatch<React.SetStateAction<employeeGetInterface[]>>}) {
     
@@ -35,7 +36,7 @@ export function EditButton({employee, setEmployees} : { employee : employeeGetIn
     const [loan, setLoan] = useState(employee.loan)
 
     const mutationUpdate = useMutation({
-        mutationFn : (data : employeeGetInterface) => axios.put("http://localhost:5000/employee", data),
+        mutationFn : (data : employeeGetInterface) => axios.put(backendUrl("employee"), data),
         onSuccess : (response : { data : employeeGetInterface[]} ) => {
           setEmployees(response.data)
           successAlert("updated Successfuly")
@@ -44,7 +45,7 @@ export function EditButton({employee, setEmployees} : { employee : employeeGetIn
     })
 
     const mutationDelete = useMutation({
-      mutationFn : (id : string) => axios.delete("http://localhost:5000/employee/" + id),
+      mutationFn : (id : string) => axios.delete(backendUrl(`employee/${id}`)),
       onSuccess : (response : { data : employeeGetInterface[]} ) => setEmployees(response.data),
       onError : (err : { request : { response : string}}) => errorAlert(err.request.response)
   })

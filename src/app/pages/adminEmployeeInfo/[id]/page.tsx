@@ -4,14 +4,14 @@ import { Button } from "@/components/ui/button";
 import { bgStyle } from "@/app/util/func";
 import Link from "next/link";
 import { Briefcase, Calculator, DollarSign, Heart, Mail, Phone, User } from "lucide-react"
-
+import { backendUrl } from "@/app/util/url"
 
 
 export default async function PayrollTable({ params} : { params : { id : string}}) {
 
     const id = params.id
 
-    const response = await axios.get("http://localhost:5000/employee/" + id)
+    const response = await axios.get(backendUrl(`employee/${id}`))
 
     const employee : employeeGetInterface = response.data
 

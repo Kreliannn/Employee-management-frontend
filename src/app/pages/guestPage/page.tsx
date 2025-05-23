@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input"
 import { useRouter } from "next/navigation"
 import { bgStyle } from "@/app/util/func"
 import { Search } from "lucide-react" 
+import { backendUrl } from "@/app/util/url"
 
 export default  function TableDemo() {
 
@@ -28,7 +29,7 @@ export default  function TableDemo() {
 
     useEffect(() => {
         const fetch = async () => {
-            const respone = await axios.get("http://localhost:5000/employee")
+            const respone = await axios.get(backendUrl("employee"))
             setData(respone.data)
             setEmployees(respone.data)
             console.log(employees)

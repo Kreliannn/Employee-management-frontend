@@ -18,6 +18,7 @@ import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
 import { errorAlert, successAlert } from "@/app/util/sweetAlert"
 import { Plus } from "lucide-react";
+import { backendUrl } from "@/app/util/url"
  
 export function AddButton({ setEmployees} : { setEmployees :  React.Dispatch<React.SetStateAction<employeeGetInterface[]>>}) {
     
@@ -31,7 +32,7 @@ export function AddButton({ setEmployees} : { setEmployees :  React.Dispatch<Rea
 
 
     const mutation = useMutation({
-        mutationFn : (data : employeeAddInterface) => axios.post("http://localhost:5000/employee", data),
+        mutationFn : (data : employeeAddInterface) => axios.post(backendUrl("employee"), data),
         onSuccess : (response : { data : employeeGetInterface[]} ) => {
           setEmployees(response.data)
           successAlert("Employee Added")

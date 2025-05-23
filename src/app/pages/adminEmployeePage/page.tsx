@@ -19,6 +19,8 @@ import { EditButton } from "./components/editPopUp"
 import { AddButton } from "./components/addPopUp"
 import { bgStyle } from "@/app/util/func" 
 import { Search } from "lucide-react";
+import { backendUrl } from "@/app/util/url"
+
 
 export default  function TableDemo() {
 
@@ -30,7 +32,7 @@ export default  function TableDemo() {
 
     useEffect(() => {
         const fetch = async () => {
-            const respone = await axios.get("http://localhost:5000/employee")
+            const respone = await axios.get(backendUrl("employee"))
             setData(respone.data)
             setEmployees(respone.data)
             console.log(employees)
@@ -40,7 +42,7 @@ export default  function TableDemo() {
 
     useEffect(() => {
         const fetch = async () => {
-            const respone = await axios.get("http://localhost:5000/employee")
+            const respone = await axios.get(backendUrl("employee"))
             setData(respone.data)
         }
         fetch()

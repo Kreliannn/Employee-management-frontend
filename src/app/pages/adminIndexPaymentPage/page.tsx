@@ -19,7 +19,7 @@ import { EditButton } from "./components/editPopUp"
 import { getTotalDeduction, getTotalNet } from "@/app/util/func"
 import { bgStyle } from "@/app/util/func"
 import { Search, View } from "lucide-react" 
-
+import { backendUrl } from "@/app/util/url"
 
 export default  function IndexPayment() {
 
@@ -31,7 +31,7 @@ export default  function IndexPayment() {
 
     useEffect(() => {
         const fetch = async () => {
-            const respone = await axios.get("http://localhost:5000/employee")
+            const respone = await axios.get(backendUrl("employee"))
             setData(respone.data)
             setEmployees(respone.data)
             console.log(employees)
@@ -41,7 +41,7 @@ export default  function IndexPayment() {
 
     useEffect(() => {
         const fetch = async () => {
-            const respone = await axios.get("http://localhost:5000/employee")
+            const respone = await axios.get(backendUrl("employee"))
             setData(respone.data)
         }
         fetch()
