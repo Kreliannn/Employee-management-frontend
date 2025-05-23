@@ -22,6 +22,7 @@ import axios from "axios"
 import { getTotalDeduction } from "@/app/util/func"
 import { Edit } from "lucide-react"
 import { loan_dateInterface } from "@/types/employeeInterface"
+import { backendUrl } from "@/app/util/url"
 
 export function EditButton({employee, setEmployees} : { employee : employeeGetInterface, setEmployees :  React.Dispatch<React.SetStateAction<employeeGetInterface[]>>}) {
   
@@ -94,34 +95,46 @@ export function EditButton({employee, setEmployees} : { employee : employeeGetIn
   const [landbankLoanDue16_30Validity, setLandbankLoanDue16_30Validity] = useState(loan.landbank_loan_due_16_30.validity);
   
 
-  const submitFunction = () => {
+  const mutationUpdate = useMutation({
+    mutationFn : (data : { _id : string, loan : loan_dateInterface}) => axios.put(backendUrl("employee/loan"), data),
+    onSuccess : (response : { data : employeeGetInterface[]} ) => {
+      setEmployees(response.data)
+      successAlert("Data updated")
+    },
+    onError : (err : { request : { response : string}}) => errorAlert(err.request.response)
+  })
+
+
+const submitFunction = () => {
+  setOpen(false)
+  confirmAlert(`Update ${employee.name} Data?`, "confirm", () => {
     const loan_data = {
-      tax: { end_date: taxDate, validity: taxValidity },
-      life_retirement: { end_date: lifeRetirementDate, validity: lifeRetirementValidity },
-      medicare: { end_date: medicareDate, validity: medicareValidity },
-      pagibig_cont: { end_date: pagibigContDate, validity: pagibigContValidity },
-      euli: { end_date: euliDate, validity: euliValidity },
-      pagibig_loan: { end_date: pagibigLoanDate, validity: pagibigLoanValidity },
-      pagibig_calamity_loan: { end_date: pagibigCalamityLoanDate, validity: pagibigCalamityLoanValidity },
-      pagibig_housing_loan: { end_date: pagibigHousingLoanDate, validity: pagibigHousingLoanValidity },
-      veterans_loan: { end_date: veteransLoanDate, validity: veteransLoanValidity },
-      dbp_loan: { end_date: dbpLoanDate, validity: dbpLoanValidity },
-      consol_salary_loan: { end_date: consolSalaryLoanDate, validity: consolSalaryLoanValidity },
-      mpl: { end_date: mplDate, validity: mplValidity },
-      emergency_loan: { end_date: emergencyLoanDate, validity: emergencyLoanValidity },
-      policy_loan: { end_date: policyLoanDate, validity: policyLoanValidity },
-      gfal: { end_date: gfalDate, validity: gfalValidity },
-      educ: { end_date: educDate, validity: educValidity },
-      policy_loan_opt: { end_date: policyLoanOptDate, validity: policyLoanOptValidity },
-      computer_loan: { end_date: computerLoanDate, validity: computerLoanValidity },
-      landbank_loan_due_1_15: { end_date: landbankLoanDue1_15Date, validity: landbankLoanDue1_15Validity },
-      landbank_loan_due_16_30: { end_date: landbankLoanDue16_30Date, validity: landbankLoanDue16_30Validity }
-    };
-  
-   
-    console.log(loan_data);
-  };
-  
+        tax: { end_date: taxDate, validity: taxValidity },
+        life_retirement: { end_date: lifeRetirementDate, validity: lifeRetirementValidity },
+        medicare: { end_date: medicareDate, validity: medicareValidity },
+        pagibig_cont: { end_date: pagibigContDate, validity: pagibigContValidity },
+        euli: { end_date: euliDate, validity: euliValidity },
+        pagibig_loan: { end_date: pagibigLoanDate, validity: pagibigLoanValidity },
+        pagibig_calamity_loan: { end_date: pagibigCalamityLoanDate, validity: pagibigCalamityLoanValidity },
+        pagibig_housing_loan: { end_date: pagibigHousingLoanDate, validity: pagibigHousingLoanValidity },
+        veterans_loan: { end_date: veteransLoanDate, validity: veteransLoanValidity },
+        dbp_loan: { end_date: dbpLoanDate, validity: dbpLoanValidity },
+        consol_salary_loan: { end_date: consolSalaryLoanDate, validity: consolSalaryLoanValidity },
+        mpl: { end_date: mplDate, validity: mplValidity },
+        emergency_loan: { end_date: emergencyLoanDate, validity: emergencyLoanValidity },
+        policy_loan: { end_date: policyLoanDate, validity: policyLoanValidity },
+        gfal: { end_date: gfalDate, validity: gfalValidity },
+        educ: { end_date: educDate, validity: educValidity },
+        policy_loan_opt: { end_date: policyLoanOptDate, validity: policyLoanOptValidity },
+        computer_loan: { end_date: computerLoanDate, validity: computerLoanValidity },
+        landbank_loan_due_1_15: { end_date: landbankLoanDue1_15Date, validity: landbankLoanDue1_15Validity },
+        landbank_loan_due_16_30: { end_date: landbankLoanDue16_30Date, validity: landbankLoanDue16_30Validity }
+      };
+    mutationUpdate.mutate({ _id : employee._id , loan : loan_data })
+  })
+}
+
+
 
 
 
@@ -374,7 +387,7 @@ const Container = ({ name, date, setDate, validity, setValidity } : { name: stri
                     </div>
 
                     <div className="flex flex-col w-full">
-                        <label htmlFor="validity" className="mb-1 text-sm text-gray-700">Validity</label>
+                        <label htmlFor="validity" className="mb-1 text-sm text-gray-700">Loan Term</label>
                         <Input
                             id="validity"
                             type="number"

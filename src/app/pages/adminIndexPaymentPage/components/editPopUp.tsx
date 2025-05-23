@@ -21,6 +21,7 @@ import { errorAlert , successAlert, confirmAlert} from "@/app/util/sweetAlert"
 import axios from "axios"
 import { getTotalDeduction } from "@/app/util/func"
 import { Edit } from "lucide-react"
+import { backendUrl } from "@/app/util/url"
 
 export function EditButton({employee, setEmployees} : { employee : employeeGetInterface, setEmployees :  React.Dispatch<React.SetStateAction<employeeGetInterface[]>>}) {
   
@@ -56,7 +57,7 @@ export function EditButton({employee, setEmployees} : { employee : employeeGetIn
   })
 
   const mutationUpdate = useMutation({
-    mutationFn : (data : { _id : string, info : infoInterface}) => axios.put("http://localhost:5000/employee/info", data),
+    mutationFn : (data : { _id : string, info : infoInterface}) => axios.put(backendUrl("employee/info"), data),
     onSuccess : (response : { data : employeeGetInterface[]} ) => {
       setEmployees(response.data)
       successAlert("Excel File updated")

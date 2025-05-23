@@ -20,6 +20,7 @@ import { bgStyle } from "@/app/util/func"
 import { Search, View , Edit} from "lucide-react" 
 import { Label } from "@/components/ui/label"
 import { EditButton } from "./components/EditButton"
+import { backendUrl } from "@/app/util/url"
 
 export default  function IndexPayment() {
 
@@ -31,7 +32,7 @@ export default  function IndexPayment() {
 
     useEffect(() => {
         const fetch = async () => {
-            const respone = await axios.get("http://localhost:5000/employee")
+            const respone = await axios.get(backendUrl("employee"))
             setData(respone.data)
             setEmployees(respone.data)
             console.log(employees)
@@ -41,7 +42,7 @@ export default  function IndexPayment() {
 
     useEffect(() => {
         const fetch = async () => {
-            const respone = await axios.get("http://localhost:5000/employee")
+            const respone = await axios.get(backendUrl("employee"))
             setData(respone.data)
         }
         fetch()
@@ -96,7 +97,7 @@ export default  function IndexPayment() {
             </div>
             <br /> 
 
-            <div className="w-5/6 m-auto shadow-lg  rounded-lg h-[430px] overflow-auto border">
+            <div className="w-5/6 m-auto shadow-lg  rounded-lg h-[430px] overflow-auto ">
                 
                 {
                     employees.map((employee) => {
@@ -164,7 +165,7 @@ export default  function IndexPayment() {
                                         )}
                                          {lastInfo.pagibig_cont !== 0 && (
                                         <LoanCard
-                                            name={"pagibig_cont"}
+                                            name={"pagibig cont"}
                                             value={lastInfo.pagibig_cont}
                                             end_date={loan.pagibig_cont.end_date}
                                             validity={loan.pagibig_cont.validity}
@@ -180,7 +181,7 @@ export default  function IndexPayment() {
                                         )}
                                         {lastInfo.pagibig_loan !== 0 && (
                                         <LoanCard
-                                            name={"pagibig_loan"}
+                                            name={"pagibig loan"}
                                             value={lastInfo.pagibig_loan}
                                             end_date={loan.pagibig_loan.end_date}
                                             validity={loan.pagibig_loan.validity}
@@ -204,7 +205,7 @@ export default  function IndexPayment() {
                                         )}
                                          {lastInfo.veterans_loan !== 0 && (
                                         <LoanCard
-                                            name={"veterans_loan"}
+                                            name={"veterans loan"}
                                             value={lastInfo.veterans_loan}
                                             end_date={loan.veterans_loan.end_date}
                                             validity={loan.veterans_loan.validity}
@@ -212,7 +213,7 @@ export default  function IndexPayment() {
                                         )}
                                          {lastInfo.dbp_loan !== 0 && (
                                         <LoanCard
-                                            name={"dbp_loan"}
+                                            name={"dbp loan"}
                                             value={lastInfo.dbp_loan}
                                             end_date={loan.dbp_loan.end_date}
                                             validity={loan.dbp_loan.validity}
@@ -220,7 +221,7 @@ export default  function IndexPayment() {
                                         )}
                                          {lastInfo.consol_salary_loan !== 0 && (
                                         <LoanCard
-                                            name={"consol_salary_loan"}
+                                            name={"consol salary loan"}
                                             value={lastInfo.consol_salary_loan}
                                             end_date={loan.consol_salary_loan.end_date}
                                             validity={loan.consol_salary_loan.validity}
@@ -236,7 +237,7 @@ export default  function IndexPayment() {
                                         )}
                                            {lastInfo.emergency_loan !== 0 && (
                                         <LoanCard
-                                            name={"emergency_loan"}
+                                            name={"emergency loan"}
                                             value={lastInfo.emergency_loan}
                                             end_date={loan.emergency_loan.end_date}
                                             validity={loan.emergency_loan.validity}
@@ -244,7 +245,7 @@ export default  function IndexPayment() {
                                         )}
                                            {lastInfo.policy_loan !== 0 && (
                                         <LoanCard
-                                            name={"policy_loan"}
+                                            name={"policy loan"}
                                             value={lastInfo.policy_loan}
                                             end_date={loan.policy_loan.end_date}
                                             validity={loan.policy_loan.validity}
@@ -268,7 +269,7 @@ export default  function IndexPayment() {
                                         )}
                                         {lastInfo.policy_loan_opt !== 0 && (
                                         <LoanCard
-                                            name={"policy_loan_opt"}
+                                            name={"policy loan opt"}
                                             value={lastInfo.policy_loan_opt}
                                             end_date={loan.policy_loan_opt.end_date}
                                             validity={loan.policy_loan_opt.validity}
@@ -276,7 +277,7 @@ export default  function IndexPayment() {
                                         )}
                                         {lastInfo.computer_loan !== 0 && (
                                         <LoanCard
-                                            name={"computer_loan"}
+                                            name={"computer loan"}
                                             value={lastInfo.computer_loan}
                                             end_date={loan.computer_loan.end_date}
                                             validity={loan.computer_loan.validity}
@@ -316,19 +317,41 @@ export default  function IndexPayment() {
 const LoanCard = ({ name, value, end_date, validity }: { name: string, value: number, end_date: string, validity: number }) => {
 
     return(
-        <div className="bg-stone-100 shadow-lg p-2 rounded-md flex-shrink-0 w-[180px]">
-            <div className="font-medium text-black border-b border-stone-500 pb-1 mb-1">{name}</div>
+        <div className="bg-stone-100 shadow-lg p-4 rounded-md flex-shrink-0 w-[180px]">
+            <div className="font-medium text-stone-700 border-b border-stone-500 pb-1 mb-1">{name}</div>
             <div className="grid grid-cols-[auto,1fr] gap-x-1 text-xs">
-                <Label className="text-green-500 text-[10px]">Value:</Label>
-                <div className="text-stone-900 mb-1">{value}</div>
+                <Label className="text-green-700 text-[10px] font-bold">Amount:</Label>
+                <div className="text-stone-700 mb-1">{`₱ ${value}`}</div>
                 
-                <Label className="text-green-500 text-[10px]">End:</Label>
-                <div className="text-stone-900 mb-1">{ end_date }</div> 
+                <Label className="font-bold text-green-700 text-[10px]">Loan End:</Label>
+                <div className="text-stone-700 mb-1">{ ` ${(end_date != "") ? formatDate(end_date) : "No Selected Date"}  `  }</div> 
                 
-                <Label className="text-green-500 text-[10px]">Validity:</Label>
-                <div className="text-stone-900 mb-1">{validity}</div> 
+                <Label className=" font-bold text-green-700 text-[10px]">Loan Term:</Label>
+                <div className="text-stone-700 mb-1">{`${validity} ${(validity > 1) ? "yrs" : "yr"  }`}</div> 
             </div>
         </div>
     )
 
 }
+
+
+function formatDate(input: string): string {
+    const [year, month, day] = input.split('-');
+  
+    const date = new Date(`${year}-${month}-${day}`);
+  
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    };
+  
+    return date.toLocaleDateString('en-US', options);
+  }
+  
+  // Example usage
+  console.log(formatDate("2025-01-05")); // Output: January 5, 2025
+  
+  
+
+  
